@@ -1,5 +1,8 @@
 pipeline {   
     agent any
+    tools {
+        NodeJS 'my-nodejs 20.6.0'
+    }
     stages {
        
         stage("Initialice") {
@@ -23,7 +26,7 @@ pipeline {
             steps {
                 script {
                     echo "Building the application...."
-                    sh 'npm install'
+                    sh 'npm install ./app'
                 }
             }
         }
