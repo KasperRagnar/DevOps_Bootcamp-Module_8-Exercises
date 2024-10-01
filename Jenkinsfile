@@ -20,7 +20,7 @@ pipeline {
                     echo "increment the application 'patch' version...."
 
                     // get current version
-                    $CURRENT_NPM_VERSION = $(node -p -e "require('./package.json').version")
+                    sh "$CURRENT_NPM_VERSION = $(node -p -e "require('./package.json').version")"
 
                     // define version numbers
                     $major = $CURRENT_NPM_VERSION[0]
