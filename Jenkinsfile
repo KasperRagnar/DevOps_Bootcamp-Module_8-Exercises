@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     echo "increment the application 'patch' version...."
-                    $IMAGE_NAME = 1.0.1
+                    $IMAGE_NAME = "1.0.1"
 
                     // // get current version
                     // sh "$CURRENT_NPM_VERSION = $(node -p -e "require('./package.json').version")"
