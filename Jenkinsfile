@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     echo "Testing the application...."
-                    sh 'npm run test'
+                    sh 'npm run server.test.js'
                 }
             }
         }
