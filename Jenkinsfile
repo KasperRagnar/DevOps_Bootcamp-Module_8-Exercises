@@ -2,6 +2,15 @@ pipeline {
     agent any
     stages {
        
+        stage("Initialice") {
+            steps {
+                script {
+                    echo "Initialice the pipeline...."
+                    sh 'apt install nodejs npm -y'
+                }
+            }
+        }
+
         stage("Increment Version") {
             steps {
                 script {
