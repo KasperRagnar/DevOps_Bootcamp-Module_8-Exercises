@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     echo "Initialice the pipeline...."
-                    sh 'apt install nodejs npm -y'
+                    //sh 'apt install nodejs'
                 }
             }
         }
