@@ -21,6 +21,8 @@ pipeline {
                 script {
                     echo "increment the application 'patch' version...."
 
+                    // currently on EXERCISE 2
+
                     // get current version
                     def current_npm_version = sh(returnStdout: true, script: 'npm pkg get version')
                     echo "$current_npm_version"
