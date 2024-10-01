@@ -1,8 +1,5 @@
 pipeline {   
     agent any
-    tools {
-        maven 'maven-3.9'
-    }
     stages {
        
         stage("Increment Version") {
@@ -17,7 +14,16 @@ pipeline {
             steps {
                 script {
                     echo "Building the application...."
-                    sh 'mvn clean package'
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage("run tests") {
+            steps {
+                script {
+                    echo "Testing the application...."
+                    sh 'npm run test'
                 }
             }
         }
