@@ -22,27 +22,27 @@ pipeline {
                     echo "increment the application 'patch' version...."
 
                     // get current version
-                    $CURRENT_NPM_VERSION = sh(returnStdout: true, script: 'npm pkg get version')
-                    echo "$CURRENT_NPM_VERSION"
+                    def current_npm_version = sh(returnStdout: true, script: 'npm pkg get version')
+                    echo "$current_npm_version"
                     // define version numbers
-                    $major = $CURRENT_NPM_VERSION[1]
-                    $minor = $CURRENT_NPM_VERSION[3]
-                    $patch = $CURRENT_NPM_VERSION[5]
+                    def major = $current_npm_version[1]
+                    def minor = $current_npm_version[3]
+                    def patch = $current_npm_version[5]
 
                     echo "major = $major"
                     echo "minor = $minor"
                     echo "patch = $patch"
 
                     // increments version number
-                    $NEW_PATCH = sh(returnStdout: true, script: '$patch = $(($patch + 1))')
+                    def new_patch = sh(returnStdout: true, script: '$patch = $(($patch + 1))')
 
-                    echo "NEW_PATCH = $NEW_PATCH"
+                    echo "new_patch = $new_patch"
 
                     // make new version numbers
-                    $NEW_NPM_VERSION = "$major.$minor.$NEW_PATCH"
+                    def new_npm_version = "$major.$minor.$new_patch"
                     env.IMAGE_NAME = "$NEW_NPM_VERSION-$BUILD_NUMBER"
 
-                    echo "NEW_NPM_VERSION = $NEW_NPM_VERSION"
+                    echo "new_npm_version = $new_npm_version"
                     echo "IMAGE_NAME = $IMAGE_NAME"
                     
                     // update application version number
