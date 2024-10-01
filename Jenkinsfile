@@ -18,25 +18,24 @@ pipeline {
             steps {
                 script {
                     echo "increment the application 'patch' version...."
-                    $IMAGE_NAME = "1.0.1"
 
-                    // // get current version
-                    // sh "$CURRENT_NPM_VERSION = $(node -p -e "require('./package.json').version")"
+                    // get current version
+                    def CURRENT_NPM_VERSION = sh(returnStdout: true, script: 'npm pkg get version')
 
-                    // // define version numbers
-                    // $major = $CURRENT_NPM_VERSION[0]
-                    // $minor = $CURRENT_NPM_VERSION[2]
-                    // $patch = $CURRENT_NPM_VERSION[4]
+                    // define version numbers
+                    $major = $CURRENT_NPM_VERSION[1]
+                    $minor = $CURRENT_NPM_VERSION[3]
+                    $patch = $CURRENT_NPM_VERSION[5]
 
-                    // // increments version number
-                    // sh "$patch = $(($patch + 1))"
+                    // increments version number
+                    def NEW_PATCH = sh(returnStdout: true, script: '$patch = $(($patch + 1))')
 
-                    // // make new version number
-                    // $NEW_NPM_VERSION = "$major.$minor.$patch"
-                    // env.IMAGE_NAME = "$NEW_NPM_VERSION-$BUILD_NUMBER"
+                    // make new version numbers
+                    $NEW_NPM_VERSION = "$major.$minor.PATCH"
+                    env.IMAGE_NAME = "$NEW_NPM_VERSION-$BUILD_NUMBER"
                     
-                    // // update version number
-                    // sh "npm version $IMAGE_NAME"
+                    // update application version number
+                    sh "npm version $NEW_NPM_VERSION"
                 }
             }
         }
