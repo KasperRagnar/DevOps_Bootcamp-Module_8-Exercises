@@ -11,7 +11,12 @@ pipeline {
             steps {
                 script {
                     echo "Initialice the pipeline...."
-                    //sh 'apt install nodejs'
+
+                    // scho "install NodeJS"
+                    // sh 'apt install nodejs'
+
+                    // installs dependencies
+                    //sh 'npm install'
                 }
             }
         }
@@ -53,23 +58,23 @@ pipeline {
             }
         }
 
-        stage("build") {
-            steps {
-                script {
-                    echo "Building the application...."
-                    sh 'npm install ./app'
-                }
-            }
-        }
+        // stage("build") {
+        //     steps {
+        //         script {
+        //             echo "Building the application...."
+        //             //sh 'npm install ./app'
+        //         }
+        //     }
+        // }
 
-        stage("run tests") {
-            steps {
-                script {
-                    echo "Testing the application...."
-                    //sh 'npm run server.test.js'
-                }
-            }
-        }
+        // stage("run tests") {
+        //     steps {
+        //         script {
+        //             echo "Testing the application...."
+        //             //sh 'npm run server.test.js'
+        //         }
+        //     }
+        // }
 
         stage("build docker image") {
             steps {
@@ -84,12 +89,12 @@ pipeline {
             }
         }
 
-        stage("deploy") {
-            steps {
-                script {
-                    echo "Deploying the application...."
-                }
-            }
-        }               
+        // stage("deploy") {
+        //     steps {
+        //         script {
+        //             echo "Deploying the application...."
+        //         }
+        //     }
+        // }               
     }
 } 
