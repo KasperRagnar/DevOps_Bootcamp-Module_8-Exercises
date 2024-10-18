@@ -1,8 +1,8 @@
-FROM node:22-alpine
+FROM node:20-alpine
 
-RUN mkdir -p /opt/
-COPY ./app /opt/
-WORKDIR /opt/app/
+RUN mkdir -p /usr/app
+COPY ./app /usr/app
+WORKDIR /usr/app
 
 EXPOSE 3000
 
