@@ -9,10 +9,20 @@ pipeline {
        
         stage("Initialice") {
             steps {
+                dir('app') {
+                    sh 'pwd'
+                    sh 'ls'
+                }
                 script {
                     echo "Initialice the pipeline...."
 
-                    // scho "install NodeJS"
+                    // Change work directory
+                    sh 'pwd'
+                    sh 'cd ./app'
+                    sh 'ls'
+
+
+                    // sh "install NodeJS"
                     // sh 'apt install nodejs'
 
                     // installs dependencies
@@ -26,9 +36,6 @@ pipeline {
                 script {
                     // Change work directory
                     sh 'pwd'
-                    sh 'ls'
-                    sh 'ls ./app'
-                    sh 'cd ./app'
                     sh 'ls'
 
                     // display current version
