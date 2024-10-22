@@ -25,7 +25,10 @@ pipeline {
             steps {
                 script {
                     // Change work directory
+                    sh 'pwd'
+                    sh 'ls'
                     sh 'cd app'
+                    sh 'ls'
 
                     // display current version
                     def CURRENT_NPM_VERSION = sh 'npm pkg get version'
