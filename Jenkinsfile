@@ -26,34 +26,22 @@ pipeline {
                 script {
                     echo "increment the application 'patch' version...."
 
-                    // currently on EXERCISE 2
+                    // Increment NPM version in package.json
+                    //sh 'npm version major'
+                    //sh 'npm version minor'
+                    sh 'npm version patch'
 
-                    // get current version
-                    def current_npm_version = sh(returnStdout: true, script: 'npm pkg get version')
-                    echo "$current_npm_version"
-                    // define version numbers
-                    def major = $current_npm_version[1]
-                    def minor = $current_npm_version[3]
-                    def patch = $current_npm_version[5]
 
-                    echo "major = $major"
-                    echo "minor = $minor"
-                    echo "patch = $patch"
+                    // get current NPM version
+                    def NPM_VERSION = sh(returnStdout: true, script: 'npm pkg get version')
 
-                    // increments version number
-                    def new_patch = sh(returnStdout: true, script: '$patch = $(($patch + 1))')
-
-                    echo "new_patch = $new_patch"
 
                     // make new version numbers
-                    def new_npm_version = "$major.$minor.$new_patch"
-                    env.IMAGE_NAME = "$NEW_NPM_VERSION-$BUILD_NUMBER"
+                    env.IMAGE_NAME = "$NPM_VERSION-$BUILD_NUMBER"
 
-                    echo "new_npm_version = $new_npm_version"
+                    echo "NPM_VERSION = $NPM_VERSION"
+                    echo "BUILD NUMBER = $BUILD_NUMBER"
                     echo "IMAGE_NAME = $IMAGE_NAME"
-                    
-                    // update application version number
-                    sh "npm version $NEW_NPM_VERSION"
                 }
             }
         }
