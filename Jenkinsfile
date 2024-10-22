@@ -24,6 +24,7 @@ pipeline {
         stage("Increment Version") {
             steps {
                 script {
+                    sh 'cd app'
                     echo "increment the application 'patch' version...."
 
                     // Increment NPM version in package.json
