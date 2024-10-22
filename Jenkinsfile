@@ -27,7 +27,8 @@ pipeline {
                     // Change work directory
                     sh 'pwd'
                     sh 'ls'
-                    sh 'cd app'
+                    sh 'ls ./app'
+                    sh 'cd ./app'
                     sh 'ls'
 
                     // display current version
