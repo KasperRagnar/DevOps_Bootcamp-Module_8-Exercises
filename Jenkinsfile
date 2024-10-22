@@ -42,6 +42,10 @@ pipeline {
                     echo "NPM_VERSION = $NPM_VERSION"
                     echo "BUILD NUMBER = $BUILD_NUMBER"
                     echo "IMAGE_NAME = $IMAGE_NAME"
+
+                    sh 'git add .'
+                    sh "git comit -m 'jenkins - increment application version'"
+                    sh 'git push'
                 }
             }
         }
