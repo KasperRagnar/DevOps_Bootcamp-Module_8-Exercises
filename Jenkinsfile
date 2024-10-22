@@ -33,8 +33,8 @@ pipeline {
 
 
                     // get current NPM version
-                    def NPM_VERSION = sh(returnStdout: true, script: 'npm pkg get version')
-
+                    //def NPM_VERSION = sh(returnStdout: true, script: 'npm pkg get version')
+                    def NPM_VERSION = sh 'npm pkg get version'
 
                     // make new version numbers
                     env.IMAGE_NAME = "$NPM_VERSION-$BUILD_NUMBER"
