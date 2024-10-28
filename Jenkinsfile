@@ -33,10 +33,12 @@ pipeline {
 
                     script {
                         // display current version
-                        CURRENT_NPM_VERSION = sh (
+                        NPM_VERSION = sh (
                             script: 'npm pkg get version',
                             returnStdout: true
-                        ).trim().toString() 
+                        ).trim()
+                        CURRENT_NPM_VERSION = sh ().trim(${NPM_VERSION}, '"')
+                        
                         echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}"
 
                         // increment current version
@@ -49,7 +51,8 @@ pipeline {
                         NEW_NPM_VERSION = sh (
                             script: 'npm pkg get version',
                             returnStdout: true
-                        ).trim().toString()
+                        ).trim('"')
+
 
                         echo "NEW_NPM_VERSION = ${NEW_NPM_VERSION}"
                         echo "BUILD NUMBER = $BUILD_NUMBER"
