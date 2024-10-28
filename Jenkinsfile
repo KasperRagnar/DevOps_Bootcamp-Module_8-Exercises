@@ -9,17 +9,13 @@ pipeline {
        
         stage("Initialice") {
             steps {
-                script {
-                    echo "Initialice the pipeline...."
+                dir('scripts') { 
+                    script {
+                        echo "Initialice the pipeline...."
 
-                    // initialize a groovy script af gv
-                    gv = load "../scripts/getVersion.groovy"
-                    
-                    // sh "install NodeJS"
-                    // sh 'apt install nodejs'
-
-                    // installs dependencies
-                    //sh 'npm install'
+                        // initialize a groovy script af gv
+                        gv = load "../scripts/getVersion.groovy"
+                    }
                 }
             }
         }
@@ -29,14 +25,6 @@ pipeline {
                 // Change work directory
                 dir('app') { 
                     script {
-                        // // display current version
-                        // def CURRENT_NPM_VERSION = sh (
-                        //     script: 'npm pkg get version',
-                        //     returnStdout: true
-                        // ).trim()
-
-                        // echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}#"}"
-
                         // display current version
                         def CURRENT_NPM_VERSION = gv.getPackageVersionNumber()
                         echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}"
