@@ -36,7 +36,7 @@ pipeline {
                             returnStdout: true
                         ).trim()
 
-                        echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION//.}"
+                        echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}//."
 
                         // increment current version
                         echo "increment the application version in package.json...."
@@ -50,7 +50,7 @@ pipeline {
                             returnStdout: true
                         ).trim()
 
-                        NEW_NPM_VERSION = "${NEW_NPM_VERSION//.}"
+                        NEW_NPM_VERSION = "${NEW_NPM_VERSION}//."
 
                         echo "NEW_NPM_VERSION = ${NEW_NPM_VERSION}"
                         echo "BUILD NUMBER = $BUILD_NUMBER"
