@@ -12,6 +12,9 @@ pipeline {
                 script {
                     echo "Initialice the pipeline...."
 
+                    // initialize a groovy script af gv
+                    gv = load "../scripts/getVersion.groovy"
+                    
                     // sh "install NodeJS"
                     // sh 'apt install nodejs'
 
@@ -25,18 +28,19 @@ pipeline {
             steps {
                 // Change work directory
                 dir('app') { 
-                    // See current work directory and files
-                    sh 'pwd'
-                    sh 'ls'
-
                     script {
-                        // display current version
-                        def CURRENT_NPM_VERSION = sh (
-                            script: 'npm pkg get version',
-                            returnStdout: true
-                        ).trim()
+                        // // display current version
+                        // def CURRENT_NPM_VERSION = sh (
+                        //     script: 'npm pkg get version',
+                        //     returnStdout: true
+                        // ).trim()
 
-                        echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}//."
+                        // echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}#"}"
+
+                        // display current version
+                        def CURRENT_NPM_VERSION = gv.getPackageVersionNumber()
+                        echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}"
+
 
                         // increment current version
                         echo "increment the application version in package.json...."
@@ -44,15 +48,12 @@ pipeline {
                         //sh 'npm version minor'
                         sh 'npm version patch'
 
-                        // get the incremented NPM version
-                        NEW_NPM_VERSION = sh (
-                            script: 'npm pkg get version',
-                            returnStdout: true
-                        ).trim()
 
-                        NEW_NPM_VERSION = "${NEW_NPM_VERSION}//."
-
+                        // display incremented version
+                        def NEW_NPM_VERSION = gv.getPackageVersionNumber()
                         echo "NEW_NPM_VERSION = ${NEW_NPM_VERSION}"
+
+                        // display current build number
                         echo "BUILD NUMBER = $BUILD_NUMBER"
 
                         // make new version numbers
@@ -61,7 +62,7 @@ pipeline {
 
                         // Commit version changes to git
                         sh 'git add .'
-                        sh "git comit -m 'jenkins - increment application version'"
+                        sh "git commit -m 'jenkins - increment application version'"
                         sh 'git push'
                     }
                 }
