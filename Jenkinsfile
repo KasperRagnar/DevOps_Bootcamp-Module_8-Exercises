@@ -21,6 +21,9 @@ pipeline {
                     sh 'cd ./app'
                     sh 'ls'
 
+                    sh 'echo "This is start $(pwd)"'
+                    sh "cd ./app"
+                    sh 'echo "This is $(pwd)"'
 
                     // sh "install NodeJS"
                     // sh 'apt install nodejs'
@@ -33,6 +36,13 @@ pipeline {
 
         stage("Increment Version") {
             steps {
+                // Change work directory
+                sh script:'''
+                    #!/bin/bash
+                    echo "This is start $(pwd)"
+                    cd ./app
+                    echo "This is $(pwd)"
+                '''
                 script {
                     // Change work directory
                     sh 'pwd'
