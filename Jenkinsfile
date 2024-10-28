@@ -1,4 +1,4 @@
-def gv
+def versionTools
 
 pipeline {   
     agent any
@@ -9,12 +9,12 @@ pipeline {
        
         stage("Initialice") {
             steps {
-                dir('scripts') { 
+                dir('app') { 
                     script {
                         echo "Initialice the pipeline...."
 
                         // initialize a groovy script af gv
-                        gv = load "./getVersion.groovy"
+                        versionTools = load "../scripts/versionTools.groovy"
                     }
                 }
             }
@@ -26,7 +26,7 @@ pipeline {
                 dir('app') { 
                     script {
                         // display current version
-                        def CURRENT_NPM_VERSION = gv.getPackageVersionNumber()
+                        def CURRENT_NPM_VERSION = versionTools.getPackageVersionNumber()
                         echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}"
 
 
@@ -38,7 +38,7 @@ pipeline {
 
 
                         // display incremented version
-                        def NEW_NPM_VERSION = gv.getPackageVersionNumber()
+                        def NEW_NPM_VERSION = versionTools.getPackageVersionNumber()
                         echo "NEW_NPM_VERSION = ${NEW_NPM_VERSION}"
 
                         // display current build number
