@@ -14,7 +14,7 @@ pipeline {
                         echo "Initialice the pipeline...."
 
                         // initialize a groovy script af gv
-                        gv = load "../scripts/getVersion.groovy"
+                        gv = load "./getVersion.groovy"
                     }
                 }
             }
