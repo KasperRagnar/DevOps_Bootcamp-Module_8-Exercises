@@ -9,21 +9,8 @@ pipeline {
        
         stage("Initialice") {
             steps {
-                dir('app') {
-                    sh 'pwd'
-                    sh 'ls'
-                }
                 script {
                     echo "Initialice the pipeline...."
-
-                    // Change work directory
-                    sh 'pwd'
-                    sh 'cd ./app'
-                    sh 'ls'
-
-                    sh 'echo "This is start $(pwd)"'
-                    sh "cd ./app"
-                    sh 'echo "This is $(pwd)"'
 
                     // sh "install NodeJS"
                     // sh 'apt install nodejs'
@@ -37,40 +24,36 @@ pipeline {
         stage("Increment Version") {
             steps {
                 // Change work directory
-                sh script:'''
-                    #!/bin/bash
-                    echo "This is start $(pwd)"
-                    cd ./app
-                    echo "This is $(pwd)"
-                '''
-                script {
-                    // Change work directory
-                    sh 'pwd'
-                    sh 'ls'
+                dir('app') { 
+                    script {
+                        // See current work directory and files
+                        sh 'pwd'
+                        sh 'ls'
 
-                    // display current version
-                    def CURRENT_NPM_VERSION = sh 'npm pkg get version'
-                    echo "CURRENT_NPM_VERSION = $CURRENT_NPM_VERSION"
+                        // display current version
+                        def CURRENT_NPM_VERSION = sh 'npm pkg get version'
+                        echo "CURRENT_NPM_VERSION = $CURRENT_NPM_VERSION"
 
-                    echo "increment the application version in package.json...."
-                    //sh 'npm version major'
-                    //sh 'npm version minor'
-                    sh 'npm version patch'
+                        echo "increment the application version in package.json...."
+                        //sh 'npm version major'
+                        //sh 'npm version minor'
+                        sh 'npm version patch'
 
-                    // get updated NPM version
-                    def NEW_NPM_VERSION = sh 'npm pkg get version'
+                        // get updated NPM version
+                        def NEW_NPM_VERSION = sh 'npm pkg get version'
 
-                    echo "NEW_NPM_VERSION = $NEW_NPM_VERSION"
-                    echo "BUILD NUMBER = $BUILD_NUMBER"
+                        echo "NEW_NPM_VERSION = $NEW_NPM_VERSION"
+                        echo "BUILD NUMBER = $BUILD_NUMBER"
 
-                    // make new version numbers
-                    env.IMAGE_NAME = "$NEW_NPM_VERSION-$BUILD_NUMBER"
-                    echo "IMAGE_NAME = $IMAGE_NAME"
+                        // make new version numbers
+                        env.IMAGE_NAME = "$NEW_NPM_VERSION-$BUILD_NUMBER"
+                        echo "IMAGE_NAME = $IMAGE_NAME"
 
-                    // Commit version changes to git
-                    sh 'git add .'
-                    sh "git comit -m 'jenkins - increment application version'"
-                    sh 'git push'
+                        // Commit version changes to git
+                        sh 'git add .'
+                        sh "git comit -m 'jenkins - increment application version'"
+                        sh 'git push'
+                    }
                 }
             }
         }
