@@ -36,7 +36,7 @@ pipeline {
                         def CURRENT_NPM_VERSION = sh (
                             script: 'npm pkg get version',
                             returnStdout: true
-                        ).trim().takeBetween('"','"')
+                        ).trim() | cut -d '"' -f 2
 
                         echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}"
 
@@ -50,7 +50,7 @@ pipeline {
                         NEW_NPM_VERSION = sh (
                             script: 'npm pkg get version',
                             returnStdout: true
-                        ).trim('"').takeBetween('"','"')
+                        ).trim('"') | cut -d '"' -f 2
 
 
                         echo "NEW_NPM_VERSION = ${NEW_NPM_VERSION}"
