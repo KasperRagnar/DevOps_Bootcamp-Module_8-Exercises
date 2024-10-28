@@ -51,6 +51,7 @@ pipeline {
                             script: 'npm pkg get version',
                             returnStdout: true
                         ).trim('"') | cut -d "\"" -f 2
+                        
 
 
                         echo "NEW_NPM_VERSION = ${NEW_NPM_VERSION}"
