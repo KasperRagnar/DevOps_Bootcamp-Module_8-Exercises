@@ -29,16 +29,14 @@ pipeline {
                     sh 'pwd'
                     sh 'ls'
 
-
-
                     script {
                         // display current version
                         def CURRENT_NPM_VERSION = sh (
                             script: 'npm pkg get version',
                             returnStdout: true
-                        ).trim() | cut -d "\"" -f 2
+                        ).trim()
 
-                        echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}"
+                        echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION//.}"
 
                         // increment current version
                         echo "increment the application version in package.json...."
@@ -50,9 +48,9 @@ pipeline {
                         NEW_NPM_VERSION = sh (
                             script: 'npm pkg get version',
                             returnStdout: true
-                        ).trim('"') | cut -d "\"" -f 2
-                        
+                        ).trim()
 
+                        NEW_NPM_VERSION = "${NEW_NPM_VERSION//.}"
 
                         echo "NEW_NPM_VERSION = ${NEW_NPM_VERSION}"
                         echo "BUILD NUMBER = $BUILD_NUMBER"
