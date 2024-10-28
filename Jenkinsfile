@@ -25,14 +25,20 @@ pipeline {
             steps {
                 // Change work directory
                 dir('app') { 
-                    script {
-                        // See current work directory and files
-                        sh 'pwd'
-                        sh 'ls'
+                    // See current work directory and files
+                    sh 'pwd'
+                    sh 'ls'
 
+
+
+                    script {
                         // display current version
-                        def CURRENT_NPM_VERSION = sh 'npm pkg get version'
-                        echo "CURRENT_NPM_VERSION = $CURRENT_NPM_VERSION"
+                        //def CURRENT_NPM_VERSION = sh 'npm pkg get version'
+                        CURRENT_NPM_VERSION = sh (
+                            script: 'npm pkg get version',
+                            returnStdout: true
+                        ).trim()
+                        echo "CURRENT_NPM_VERSION = ${CURRENT_NPM_VERSION}"
 
                         echo "increment the application version in package.json...."
                         //sh 'npm version major'
@@ -40,9 +46,13 @@ pipeline {
                         sh 'npm version patch'
 
                         // get updated NPM version
-                        def NEW_NPM_VERSION = sh 'npm pkg get version'
+                        //def NEW_NPM_VERSION = sh 'npm pkg get version'
+                        NEW_NPM_VERSION = sh (
+                            script: 'npm pkg get version',
+                            returnStdout: true
+                        ).trim()
 
-                        echo "NEW_NPM_VERSION = $NEW_NPM_VERSION"
+                        echo "NEW_NPM_VERSION = ${NEW_NPM_VERSION}"
                         echo "BUILD NUMBER = $BUILD_NUMBER"
 
                         // make new version numbers
